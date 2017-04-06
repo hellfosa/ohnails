@@ -1,0 +1,40 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../static/js/moment.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap-datetimepicker.min.js"></script>
+            {{ form.media }}
+
+{% endblock %}
+
+{% block content %}
+
+<form method="post" role="form">
+            {% for field in form.visible_fields %}
+            <div id="div_{{ field.html_name }}"
+                 class="form-group{% if field.errors %} has-error{% endif %}">
+                {{ field.label_tag }}
+                {{ field }}
+                <div class="text-muted pull-right">
+                    <small>{{ field.help_text }}</small>
+                </div>
+                <div class="help-block">
+                    {{ field.errors }}
+                </div>
+            </div>
+            {% endfor %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="submit" value="Validate" class="btn btn-primary" />
+            </div>
+        </form>
+
+
+{% endblock %}
+
