@@ -2159,6 +2159,10 @@ html {
  */
 body {
   margin: 0;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
 }
 
 /* HTML5 display definitions
@@ -3349,6 +3353,8 @@ nav ul a span.badge {
   margin: 0 auto;
   max-width: 1280px;
   width: 90%;
+  flex: 1;
+
 }
 
 @media only screen and (min-width: 601px) {
@@ -5091,13 +5097,13 @@ small {
 
 .btn:focus, .btn-large:focus,
 .btn-floating:focus {
-  background-color: #1d7d74;
+  background-color: #ff9800;
 }
 
 .btn, .btn-large {
   text-decoration: none;
   color: #fff;
-  background-color: #26a69a;
+  background-color: #ff9800;
   text-align: center;
   letter-spacing: .5px;
   transition: .2s ease-out;
@@ -5105,7 +5111,7 @@ small {
 }
 
 .btn:hover, .btn-large:hover {
-  background-color: #2bbbad;
+  background-color: #ff9800;
 }
 
 .btn-floating {
@@ -5118,7 +5124,7 @@ small {
   height: 40px;
   line-height: 40px;
   padding: 0;
-  background-color: #26a69a;
+  background-color: #ff9800;
   border-radius: 50%;
   transition: .3s;
   cursor: pointer;
@@ -5126,7 +5132,7 @@ small {
 }
 
 .btn-floating:hover {
-  background-color: #26a69a;
+  background-color: #ff9800;
 }
 
 .btn-floating:before {
@@ -5273,7 +5279,7 @@ button.btn-floating {
   z-index: -1;
   width: 40px;
   height: 40px;
-  background-color: #26a69a;
+  background-color: #ff9800;
   border-radius: 50%;
   -webkit-transform: scale(0);
           transform: scale(0);
@@ -5358,7 +5364,7 @@ button.btn-floating {
 
 .dropdown-content li > a, .dropdown-content li > span {
   font-size: 16px;
-  color: #26a69a;
+  color: #ff9800;
   display: block;
   line-height: 22px;
   padding: 14px 16px;
@@ -5727,8 +5733,8 @@ button.btn-floating {
 }
 
 .chips.focus {
-  border-bottom: 1px solid #26a69a;
-  box-shadow: 0 1px 0 0 #26a69a;
+  border-bottom: 1px solid #ff9800;
+  box-shadow: 0 1px 0 0 #ff9800;
 }
 
 .chips:hover {

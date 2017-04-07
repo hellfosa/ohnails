@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="section">
+
+            <a class="btn" href="{% url 'work_edit' pk=done.pk %}">Редактировать</a>
+            <h5>Стоимость:</h5> <p>{{ done.cost }}</p>
+            <h5>Дата:</h5> <p> {{ done.date }}</p>
+            </p> <img src="{{ MEDIA_URL }}{{ done.photo.url }}" height="200"></a>
+
+    </div>
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="section">
+
+        {% for work in works %}
+
+        <h5><a href="{% url 'work_detail' pk=work.pk %}">{{ work.date }}</a></h5>
+
+        {% endfor %}
+
+    </div>
+  </div>
+
+
+{% endblock %}

@@ -21,3 +21,13 @@ class client(models.Model):
 
     def __str__(self):
         return self.fio
+
+class work(models.Model):
+    work_uuid = models.UUIDField
+    date = models.DateField(default=timezone.now)
+    client = models.CharField
+    cost = models.IntegerField(default=0)
+    photo = models.FileField(upload_to='works/%Y/%m/%d')
+
+    def __str__(self):
+        return self.date

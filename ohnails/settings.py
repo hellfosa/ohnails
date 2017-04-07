@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'bootstrap3_datepicker',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -112,14 +111,15 @@ TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
+DATE_INPUT_FORMATS = ('%d-%m-%Y',)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-STATIC_ROOT = os.path.join("/home/home/PycharmProjects/ohnails/core/static")
+STATIC_ROOT = os.path.join("/home/itadmin/PycharmProjects/ohnails/core/static")
 STATIC_URL = '/static/'
-MEDIA_ROOT = os.path.join("/home/home/PycharmProjects/ohnails/core/media")
+MEDIA_ROOT = os.path.join("/home/itadmin/PycharmProjects/ohnails/core/media")
 MEDIA_URL = '/media/'
