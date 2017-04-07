@@ -24,8 +24,8 @@ class WorkForm(forms.ModelForm):
     class Meta:
         model = work
         exclude = ()
-    client = forms.ModelChoiceField(label='Имя клиента',queryset=client.objects.all(), empty_label='Выбери клиента!')
-    date = forms.DateField(label='Дата работы', initial=timezone.now)
+    client = forms.ModelChoiceField(label='Имя клиента', queryset=client.objects.all(), empty_label='Выбери клиента!')
+    date = forms.DateField(label='Дата работы', initial=timezone.now, input_formats=settings.DATE_INPUT_FORMATS)
     cost = forms.IntegerField(label='Стоимость работы')
     photo = forms.FileField(label='Фото работы', widget=forms.ClearableFileInput(attrs={'multiple': True}))
 

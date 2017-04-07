@@ -25,9 +25,9 @@ class client(models.Model):
 class work(models.Model):
     work_uuid = models.UUIDField
     date = models.DateField(default=timezone.now)
-    client = models.CharField
     cost = models.IntegerField(default=0)
     photo = models.FileField(upload_to='works/%Y/%m/%d')
+    client = models.CharField(max_length=300, default='Выбери клиента')
 
     def __str__(self):
         return self.date
