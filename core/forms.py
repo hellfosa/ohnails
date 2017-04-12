@@ -1,7 +1,9 @@
 from django import forms
 from django.utils import timezone
-from .models import client, work
+from .models import client, work, Photo
 from django.conf import settings
+from django.forms.formsets import formset_factory
+
 
 class DocumentForm(forms.ModelForm):
     class Meta:
@@ -19,8 +21,6 @@ class DocumentForm(forms.ModelForm):
     photo = forms.FileField(label='Фотография клиента')
 
 class WorkForm(forms.ModelForm):
-
-
     class Meta:
         model = work
         exclude = ()
@@ -29,3 +29,7 @@ class WorkForm(forms.ModelForm):
     cost = forms.IntegerField(label='Стоимость работы')
     photo = forms.FileField(label='Фото работы', widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ('file',)
