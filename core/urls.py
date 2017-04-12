@@ -15,7 +15,6 @@ urlpatterns = [
     url(r'^work/(?P<pk>[0-9]+)/$', views.work_detail, name='work_detail'),
     url(r'^work_add/$', views.work_add, name='work_add'),
     url(r'^work/(?P<pk>[0-9]+)/edit/$', views.work_edit, name='work_edit'),
-    url(r'^basic-upload/$', views.BasicUploadView.as_view(), name='basic_upload'),
 
 ]
 if settings.DEBUG:

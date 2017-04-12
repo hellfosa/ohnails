@@ -33,3 +33,4 @@ class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
         fields = ('file',)
+    uploaded_at = forms.DateField(label='Дата работы', initial=timezone.now, input_formats=settings.DATE_INPUT_FORMATS)
