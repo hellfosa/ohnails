@@ -12,3 +12,50 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+.gallery {
+  width: 100%;
+  margin: 0 auto;
+
+}
+
+.gallery > div {
+  position: relative;
+  float: left;
+  padding: 5px;
+}
+
+.gallery > div > img {
+  display: block;
+  width: 200px;
+  transition: .1s transform;
+  transform: translateZ(0); /* hack */
+}
+
+.gallery > div:hover {
+  z-index: 1;
+}
+
+.gallery > div:hover > img {
+
+  transform: scale(3.0,3.0);
+  transform-origin: 50% -20%;
+  transition: .3s transform;
+}
+
+.cf:before, .cf:after {
+  display: table-cell;
+  content: "";
+  line-height: 0;
+}
+
+.cf:after {
+  clear: both;
+}
+
+h1 {
+  margin: 40px 0;
+  font-size: 30px;
+  font-weight: 300;
+  text-align: center;
+}

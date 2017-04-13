@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from django.db import models
 from django.utils import timezone
+import uuid
 
 
 # Create your models here.
@@ -34,11 +35,15 @@ class work(models.Model):
         return '{0}-{1}'.format(self.client, self.date)
 
 class Photo(models.Model):
+    photo_uuid = models.UUIDField(default=uuid.uuid4, editable=True)
     client_name = models.CharField(max_length=255, blank=True)
     file = models.FileField(upload_to='photos/%Y/%m/%d/', blank=True)
     published = models.BooleanField(default=False)
     category = models.CharField(max_length=100, blank=True)
     uploaded_at = models.DateField(auto_now_add=True)
+
+    def publish(self):
+        self.published = True
 
     def __str__(self):
         return '{0}-{1}'.format(self.client_name, self.uploaded_at)
