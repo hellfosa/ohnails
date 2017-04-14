@@ -57,9 +57,13 @@ def work_detail(request, pk):
         return render(request, 'work_detail.html', {'done': done, 'photos': photos})
     elif request.method == 'POST':
         photo = Photo.objects.get(photo_uuid=request.POST.get('uuid'))
-        Photo.publish(photo)
+        Photo.publish_switch(photo)
+        if photo.published == True:
+            publ_status = 1
+        else:
+            publ_status = 0
         photo.save()
-        return render(request, 'work_detail.html', {'done': done, 'photos': photos})
+        return render(request, 'work_detail.html', {'done': done, 'photos': photos, 'publ_status': publ_status})
 
 
 @login_required

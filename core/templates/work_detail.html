@@ -15,7 +15,7 @@
         <div class="publish-parent">
         {% for photo in photos %}
             <div class="publish-btn">
-            <a class="need_btn" data-photo="{{ photo.photo_uuid }}">Статус</a>
+            <a class="need_btn" data-photo="{{ photo.photo_uuid }}" data-publstatus="{{ photo.published }}">Статус</a>
                 <div class="publish-parent cf">
                     <div>
                         <img src="{{ MEDIA_URL }}{{ photo.file.url }}">
@@ -29,6 +29,20 @@
 <script>
 
 function main() {
+    photo = $('.need_btn');
+    for (var i = 0; i< photo.length; i++){
+        console.log(photo[i].dataset.publstatus);
+        test = photo[i].dataset.publstatus;
+        console.log(test);
+        console.log(photo[i]);
+        photo[i].css('background-color', 'blue')
+      /*  if (test === true) {
+            photo[i].css('background-color', 'blue');
+        } else {
+            photo[i].css('background-color', 'yellow');
+        }
+        */
+    }
     $('.publish-btn').on('click', function () {
         $.ajax({
             type: "POST",

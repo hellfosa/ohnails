@@ -42,8 +42,11 @@ class Photo(models.Model):
     category = models.CharField(max_length=100, blank=True)
     uploaded_at = models.DateField(auto_now_add=True)
 
-    def publish(self):
-        self.published = True
+    def publish_switch(self):
+        if self.published == True:
+            self.published = False
+        else:
+            self.published = True
 
     def __str__(self):
         return '{0}-{1}'.format(self.client_name, self.uploaded_at)
