@@ -38,7 +38,7 @@
 
 .gallery > div:hover > img {
 
-  transform: scale(3.0,3.0);
+  transform: scale(2.0,2.0);
   transform-origin: 50% -20%;
   transition: .3s transform;
 }

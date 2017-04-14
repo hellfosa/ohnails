@@ -24,7 +24,7 @@ class client(models.Model):
         return self.fio
 
 class work(models.Model):
-    work_uuid = models.UUIDField
+    work_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     date = models.DateField(auto_now_add=True)
     cost = models.IntegerField(default=0)
     photo = models.FilePathField(path='works/%Y/%m/%d')
@@ -35,7 +35,7 @@ class work(models.Model):
         return '{0}-{1}'.format(self.client, self.date)
 
 class Photo(models.Model):
-    photo_uuid = models.UUIDField(default=uuid.uuid4, editable=True)
+    photo_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     client_name = models.CharField(max_length=255, blank=True)
     file = models.FileField(upload_to='photos/%Y/%m/%d/', blank=True)
     published = models.BooleanField(default=False)

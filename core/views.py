@@ -53,7 +53,14 @@ def work_list(request):
 def work_detail(request, pk):
     done = get_object_or_404(work, pk=pk)
     photos = Photo.objects.filter(client_name=done.client, uploaded_at=done.date)
-    return render(request, 'work_detail.html', {'done': done, 'photos': photos})
+    if request.method == 'GET':
+        return render(request, 'work_detail.html', {'done': done, 'photos': photos})
+    elif request.method == 'POST':
+        photo = Photo.objects.get(photo_uuid=request.POST.get('uuid'))
+        Photo.publish(photo)
+        photo.save()
+        return render(request, 'work_detail.html', {'done': done, 'photos': photos})
+
 
 @login_required
 def work_add(request):
@@ -88,10 +95,3 @@ def work_edit(request, pk):
     else:
         form = WorkForm(instance=done)
     return render(request, 'work_add.html', {'form': form})
-
-@login_required
-def photo_publish(request, uuid, pk):
-    photo = Photo.objects.filter(photo_uuid=uuid)
-    Photo.publish(photo)
-    done = get_object_or_404(work, pk=pk)
-    return redirect('work_detail', pk=done.pk)

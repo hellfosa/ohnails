@@ -12,23 +12,32 @@
             <h5>Клиент:</h5> <p>{{ done.client }}</p>
             <h5>Стоимость:</h5> <p>{{ done.cost }}</p>
             <h5>Дата:</h5> <p> {{ done.date }}</p>
+        <div class="publish-parent">
         {% for photo in photos %}
-            <div class="publish_btn">
-                <a id="publish_btn">Опубликовать</a>
-            </div>
-            <div class="gallery cf">
-                <div>
-                    <img src="{{ MEDIA_URL }}{{ photo.file.url }}">
+            <div class="publish-btn">
+                <a class="publish_btn" data-photo="{{ photo.photo_uuid }}" data-pk="{{ done.pk }}">Опубликовать</a>
+                <div class="gallery cf">
+                    <div>
+                        <img src="{{ MEDIA_URL }}{{ photo.file.url }}">
+                    </div>
                 </div>
             </div>
         {% endfor %}
+        </div>
     </div>
   </div>
 <script>
 
 function main() {
-    $('.publish_btn').on('click', function () {
-        console.log('{{ photo.photo_uuid }}')
+    $('.publish-btn').on('click', function () {
+        $.ajax({
+            type: "POST",
+            url: "/work/{{ done.pk }}/",
+            data: {
+                'uuid': $(this).children().data('photo'),
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+            }
+        })
     });
 }
 
