@@ -15,8 +15,8 @@
         <div class="publish-parent">
         {% for photo in photos %}
             <div class="publish-btn">
-                <a class="publish_btn" data-photo="{{ photo.photo_uuid }}" data-pk="{{ done.pk }}">Опубликовать</a>
-                <div class="gallery cf">
+            <a class="need_btn" data-photo="{{ photo.photo_uuid }}">Статус</a>
+                <div class="publish-parent cf">
                     <div>
                         <img src="{{ MEDIA_URL }}{{ photo.file.url }}">
                     </div>
@@ -36,7 +36,9 @@ function main() {
             data: {
                 'uuid': $(this).children().data('photo'),
                 'csrfmiddlewaretoken': '{{ csrf_token }}',
-            }
+            },
+            success:
+                $(this).children().css('background-color', 'green')
         })
     });
 }

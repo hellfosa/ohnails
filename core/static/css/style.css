@@ -6,56 +6,41 @@
  * Made By MaterializeCSS.com
  */
 
-.icon-block {
-  padding: 0 15px;
-}
-.icon-block .material-icons {
-	font-size: inherit;
-}
 
-.gallery {
-  width: 100%;
-  margin: 0 auto;
-
-}
-
-.gallery > div {
+.publish-parent > div {
   position: relative;
   float: left;
   padding: 5px;
 }
 
-.gallery > div > img {
+.publish-parent {
+    width: 100% ;
+
+}
+.publish-parent > div > img {
   display: block;
-  width: 200px;
+  width: 150px;
   transition: .1s transform;
-  transform: translateZ(0); /* hack */
+  transform: translateZ(0);
 }
 
-.gallery > div:hover {
-  z-index: 1;
+.publish-parent > div:hover {
+  z-index: 51;
 }
 
-.gallery > div:hover > img {
-
-  transform: scale(2.0,2.0);
+.publish-parent > div:hover > img {
+  transform: scale(2.5,2.5);
   transform-origin: 50% -20%;
   transition: .3s transform;
 }
 
-.cf:before, .cf:after {
-  display: table-cell;
-  content: "";
-  line-height: 0;
-}
-
-.cf:after {
-  clear: both;
-}
-
-h1 {
-  margin: 40px 0;
-  font-size: 30px;
-  font-weight: 300;
-  text-align: center;
+.need_btn {
+    background-color: red; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 52px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
