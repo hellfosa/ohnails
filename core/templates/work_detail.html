@@ -23,7 +23,7 @@
 
 
                 </div>
-            <a class="remove_btn" data-photo="{{ photo.photo_uuid }}" >Удалить</a>
+            <a class="remove_btn" data-photo="{{ photo.photo_uuid }}">Удалить</a>
 
             </div>
         {% endfor %}
@@ -35,28 +35,41 @@
 function main() {
     photo = $('.need_btn');
     for (var i = 0; i< photo.length; i++){
-        test = photo[i].dataset.publstatus;
-        console.log(test);
-        console.log(photo[i]);
-       if (test === 'True') {
+       if (photo[i].dataset.publstatus === 'True') {
             $(photo[i]).css('background-color', 'green');
         } else {
             $(photo[i]).css('background-color', 'red');
         }
 
     }
-    $('.publish-btn').on('click', function () {
+    $('.need_btn').on('click', function () {
         $.ajax({
             type: "POST",
             url: "/work/{{ done.pk }}/",
             data: {
-                'uuid': $(this).children().data('photo'),
+                'uuid': $(this).data('photo'),
                 'csrfmiddlewaretoken': '{{ csrf_token }}',
             },
             success:
-                $(this).children().css('background-color', 'yellow')
+                $(this).css('background-color', 'yellow')
         })
     });
+
+    $('.remove_btn').on('click', function () {
+        $.ajax({
+            type: "POST",
+            url: "/work/{{ done.pk }}/",
+            data: {
+                'uuid': $(this).data('photo'),
+                'remove': 'True',
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+            },
+            success:
+                $(this).css('background-color', 'yellow')
+        })
+    });
+
+
 }
 
 $(document).ready(main);

@@ -55,3 +55,16 @@
     display: inline-block;
     font-size: 16px;
 }
+
+.client-info {
+    width: 50%;
+    float:left;
+
+
+}
+
+.client-works {
+    float:right;
+    width: 50%;
+
+}

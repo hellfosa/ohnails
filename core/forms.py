@@ -1,6 +1,6 @@
 from django import forms
 from django.utils import timezone
-from .models import client, work, Photo
+from .models import client, work, Photo, work_categorie
 from django.conf import settings
 from django.forms.formsets import formset_factory
 
@@ -25,9 +25,11 @@ class WorkForm(forms.ModelForm):
         model = work
         exclude = ()
     client = forms.ModelChoiceField(label='Имя клиента', queryset=client.objects.all(), empty_label='Выбери клиента!')
+    work_categorie = forms.ModelChoiceField(label='Категория', queryset=work_categorie.objects.all(), empty_label='Выбери категорию')
     date = forms.DateField(label='Дата работы', initial=timezone.now, input_formats=settings.DATE_INPUT_FORMATS)
-    cost = forms.IntegerField(label='Стоимость работы')
+    cost = forms.IntegerField(help_text='Стоимость работы')
     photo = forms.FileField(label='Фото работы', widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
 
 class PhotoForm(forms.ModelForm):
     class Meta:

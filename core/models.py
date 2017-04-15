@@ -25,14 +25,20 @@ class client(models.Model):
 
 class work(models.Model):
     work_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(default=timezone.now)
     cost = models.IntegerField(default=0)
     photo = models.FilePathField(path='works/%Y/%m/%d')
     category = models.CharField(max_length=100, blank=True)
     client = models.CharField(max_length=300, default='Выбери клиента')
 
     def __str__(self):
-        return '{0}-{1}'.format(self.client, self.date)
+        return '{0}'.format(self.date)
+
+class work_categorie(models.Model):
+    category = models.CharField(max_length=300, default='Выбери категорию')
+
+    def __str__(self):
+        return '{0}'.format(self.category)
 
 class Photo(models.Model):
     photo_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
@@ -40,7 +46,8 @@ class Photo(models.Model):
     file = models.FileField(upload_to='photos/%Y/%m/%d/', blank=True)
     published = models.BooleanField(default=False)
     category = models.CharField(max_length=100, blank=True)
-    uploaded_at = models.DateField(auto_now_add=True)
+    uploaded_at = models.DateField(default=timezone.now)
+    work = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def publish_switch(self):
         if self.published == True:
@@ -48,9 +55,8 @@ class Photo(models.Model):
         else:
             self.published = True
 
-    def remove_photo(self, uuid):
-        test = Photo.objects.get(photo_uuid=uuid)
-        test.delete()
+    def remove_photo(self):
+        self.delete()
 
     def __str__(self):
         return '{0}-{1}'.format(self.client_name, self.uploaded_at)

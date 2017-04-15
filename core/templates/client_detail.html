@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
+  <div class="client">
+  <div class="client-info">
+    <div class="container">
     <div class="section">
             <a class="btn" href="{% url 'client_edit' pk=person.pk %}">Редактировать</a>
             <h5>ФИО:</h5> <p>{{ person.fio }}</p>
@@ -16,11 +18,19 @@
             <h5>Мобильный:</h5> <p>{{ person.mobile }}</p>
             <h5>Противопоказания:</h5> <p>{{ person.contra }}</p>
             <h5>Дополнительно:</h5> <p>{{ person.additional }}</p>
-            </p> <img src="{{ MEDIA_URL }}{{ person.photo.url }}" height="200"></a>
-
-
     </div>
   </div>
+</div>
+  <div class="client-works">
+    </p> <img src="{{ MEDIA_URL }}{{ person.photo.url }}" height="200"></a>
+    <h5>Последние работы:</h5>
+        {% for work in client_works %}
+
+        <h5><a href="{% url 'work_detail' pk=work.pk %}">{{ work.date }}</a></h5>
+
+        {% endfor %}
+  </div>
+</div>
 
 
 {% endblock %}

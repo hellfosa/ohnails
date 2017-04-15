@@ -8,17 +8,22 @@ from .forms import DocumentForm, WorkForm
 
 @login_required
 def crm_index(request):
-    return render(request, 'index.html')
+    if request.method == 'GET':
+        works = work.objects.all().order_by('date')[:5]
+        return render(request, 'index.html', {'works': works})
 
 @login_required
 def client_list(request):
-    clients = client.objects.all()
-    return render(request, 'client_list.html', {'clients': clients})
+    if request.method == 'GET':
+        clients = client.objects.all()
+        return render(request, 'client_list.html', {'clients': clients})
 
 @login_required
 def client_detail(request, pk):
-    person = get_object_or_404(client, pk=pk)
-    return render(request, 'client_detail.html', {'person': person})
+    if request.method == 'GET':
+        person = get_object_or_404(client, pk=pk)
+        works = work.objects.filter(client=person)[:5]
+        return render(request, 'client_detail.html', {'person': person, 'client_works': works})
 
 @login_required
 def client_add(request):
@@ -55,7 +60,7 @@ def work_detail(request, pk):
     photos = Photo.objects.filter(client_name=done.client, uploaded_at=done.date)
     if request.method == 'GET':
         return render(request, 'work_detail.html', {'done': done, 'photos': photos})
-    elif request.method == 'POST':
+    elif request.method == 'POST' and request.POST.get('remove') != 'True':
         photo = Photo.objects.get(photo_uuid=request.POST.get('uuid'))
         Photo.publish_switch(photo)
         if photo.published == True:
@@ -64,7 +69,14 @@ def work_detail(request, pk):
             publ_status = 0
         photo.save()
         return render(request, 'work_detail.html', {'done': done, 'photos': photos, 'publ_status': publ_status})
-
+    elif request.method == 'POST' and request.POST.get('remove') == 'True':
+        photo = Photo.objects.get(photo_uuid=request.POST.get('uuid'))
+        Photo.remove_photo(photo)
+        if photo.published == True:
+            publ_status = 1
+        else:
+            publ_status = 0
+        return render(request, 'work_detail.html', {'done': done, 'photos': photos, 'publ_status': publ_status})
 
 @login_required
 def work_add(request):
@@ -74,7 +86,7 @@ def work_add(request):
         files = request.FILES.getlist('photo')
         if form.is_valid():
             for file in files:
-                obj = Photo(client_name=form.cleaned_data['client'], file=file)
+                obj = Photo(client_name=form.cleaned_data['client'], category=form.cleaned_data['work_categorie'], file=file)
                 print(form.cleaned_data['client'])
                 obj.save()
             form.save()
@@ -90,6 +102,7 @@ def work_edit(request, pk):
         form = WorkForm(request.POST, request.FILES, instance=done)
         files = request.FILES.getlist('photo')
         if form.is_valid():
+            print(form.cleaned_data['date'])
             for file in files:
                 obj = Photo(client_name=done.client, file=file)
                 obj.save()

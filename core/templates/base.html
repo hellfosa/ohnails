@@ -44,7 +44,7 @@
 
         </div>
         <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
+          <h5 class="white-text">Последние хз</h5>
           <ul>
             <li><a class="white-text" href="#!">Какая-то ссылка</a></li>
             <li><a class="white-text" href="#!">Какая-то ссылка</a></li>
@@ -54,13 +54,11 @@
           </ul>
         </div>
         <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
+          <h5 class="white-text">Последние работы</h5>
           <ul>
-            <li><a class="white-text" href="#!">Какая-то ссылка</a></li>
-            <li><a class="white-text" href="#!">Какая-то ссылка</a></li>
-            <li><a class="white-text" href="#!">Какая-то ссылка</a></li>
-            <li><a class="white-text" href="#!">Какая-то ссылка</a></li>
-
+{% for work in works %}
+        <li><a class="white-text" href="{% url 'work_detail' pk=work.pk %}">{{ work.date }}</a></li>
+{% endfor %}
           </ul>
         </div>
       </div>

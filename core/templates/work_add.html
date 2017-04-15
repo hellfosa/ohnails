@@ -26,7 +26,13 @@
 <form method="POST" class="viewform" enctype="multipart/form-data">
 {% csrf_token %}
 
-{{ form }}
+{{ form.client }}
+{{ form.work_categorie }}
+<p>Цена работы</p>
+{{ form.cost }}
+{{ form.date }}
+{{ form.photo }}
+
    <p>      </p>
 <button type="submit" name="_submit" class="btn">Принять</button>
 
