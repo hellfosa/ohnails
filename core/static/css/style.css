@@ -35,7 +35,18 @@
 }
 
 .need_btn {
-    background-color: red; /* Green */
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 5px 52px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.remove_btn {
+    background-color: black;
     border: none;
     color: white;
     padding: 5px 52px;

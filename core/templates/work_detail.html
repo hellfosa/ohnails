@@ -20,7 +20,11 @@
                     <div>
                         <img src="{{ MEDIA_URL }}{{ photo.file.url }}">
                     </div>
+
+
                 </div>
+            <a class="remove_btn" data-photo="{{ photo.photo_uuid }}" >Удалить</a>
+
             </div>
         {% endfor %}
         </div>
@@ -31,17 +35,15 @@
 function main() {
     photo = $('.need_btn');
     for (var i = 0; i< photo.length; i++){
-        console.log(photo[i].dataset.publstatus);
         test = photo[i].dataset.publstatus;
         console.log(test);
         console.log(photo[i]);
-        photo[i].css('background-color', 'blue')
-      /*  if (test === true) {
-            photo[i].css('background-color', 'blue');
+       if (test === 'True') {
+            $(photo[i]).css('background-color', 'green');
         } else {
-            photo[i].css('background-color', 'yellow');
+            $(photo[i]).css('background-color', 'red');
         }
-        */
+
     }
     $('.publish-btn').on('click', function () {
         $.ajax({
@@ -52,7 +54,7 @@ function main() {
                 'csrfmiddlewaretoken': '{{ csrf_token }}',
             },
             success:
-                $(this).children().css('background-color', 'green')
+                $(this).children().css('background-color', 'yellow')
         })
     });
 }

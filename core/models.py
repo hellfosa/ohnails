@@ -48,5 +48,9 @@ class Photo(models.Model):
         else:
             self.published = True
 
+    def remove_photo(self, uuid):
+        test = Photo.objects.get(photo_uuid=uuid)
+        test.delete()
+
     def __str__(self):
         return '{0}-{1}'.format(self.client_name, self.uploaded_at)
