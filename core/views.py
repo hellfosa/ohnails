@@ -112,3 +112,9 @@ def work_edit(request, pk):
     else:
         form = WorkForm(instance=done)
     return render(request, 'work_add.html', {'form': form})
+
+
+def public_index(request):
+    if request.method == 'GET':
+        #works = work.objects.all().order_by('date')[:5]
+        return render(request, 'public/index.html', )
