@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import client, work, Photo
+from .models import client, work, Photo, work_categorie
 from django.contrib.auth.decorators import login_required
 from .forms import DocumentForm, WorkForm
 
@@ -116,5 +116,9 @@ def work_edit(request, pk):
 
 def public_index(request):
     if request.method == 'GET':
-        #works = work.objects.all().order_by('date')[:5]
-        return render(request, 'public/index.html', )
+        categories = work_categorie.objects.all()
+        works = work.objects.all()
+        work_cats = {}
+        for category in categories:
+            work_cats[category.category] = works.filter(category=category)
+        return render(request, 'public/index.html', {'categories': categories, 'works': works, 'work_cats': work_cats})

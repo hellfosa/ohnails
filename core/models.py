@@ -28,7 +28,7 @@ class work(models.Model):
     date = models.DateField(default=timezone.now)
     cost = models.IntegerField(default=0)
     photo = models.FilePathField(path='works/%Y/%m/%d')
-    category = models.CharField(max_length=100, blank=True)
+    work_category = models.CharField(max_length=100, blank=True)
     client = models.CharField(max_length=300, default='Выбери клиента')
 
     def __str__(self):
