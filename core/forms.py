@@ -40,5 +40,5 @@ class PhotoForm(forms.ModelForm):
 
 class Contact(forms.Form):
     client = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'}))
-    email = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Почта'}))
+    mobile = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Телефон для связи'}))
     message = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Сообщение'}))

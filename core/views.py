@@ -124,16 +124,17 @@ def public_index(request):
     for category in categories:
         work_cats[category.category] = photos.filter(published=True).filter(category=category).order_by('uploaded_at')[:15]
     if request.method == 'POST':
-        message = '''
+        print(request.POST)
+        message = '''\
         У вас новая заявка на маникюр
-    \n
+    \
         Имя - {0}
-    \n
+    \
         Телефон - {1}
-    \n
+    \
         Текст сообщения:
-    \n
+    \
         {2}
-        '''.format(request.POST.get('name'), request.POST.get('email'), request.POST.get('message'),)
+        '''.format(request.POST.get('name'), request.POST.get('mobile'), request.POST.get('message'))
         send_mail('Работать негры!', message, 'info@oh-nails.ru', ['info@oh-nails.ru'])
     return render(request, 'public/index.html', {'categories': categories, 'works': works, 'work_cats': work_cats, 'form': form})

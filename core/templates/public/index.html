@@ -342,7 +342,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <p class="help-block text-danger"></p>
-                {{ form.email }}
+                {{ form.mobile }}
 
             </div>
           </div>
@@ -433,7 +433,7 @@ $(function() {
             event.preventDefault(); // prevent default submit behaviour
             // get values from FORM
             var name = $("input#id_client").val();
-            var email = $("input#id_email").val();
+            var mobile = $("input#id_mobile").val();
             var message = $("input#id_message").val();
             var firstName = name; // For Success/Failure Message
             // Check for white space in name for Success/Fail message
@@ -445,9 +445,9 @@ $(function() {
                 url: "/",
                 data: {
                     'name': name,
-                    'email': email,
-                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'mobile': mobile,
                     'message': message,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
 
                 },
                 cache: false,
