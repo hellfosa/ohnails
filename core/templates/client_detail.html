@@ -26,7 +26,7 @@
     <h5>Последние работы:</h5>
         {% for work in client_works %}
 
-        <h5><a href="{% url 'work_detail' pk=work.pk %}">{{ work.date }}</a></h5>
+        <h5><a href="{% url 'work_detail' pk=work.pk %}">{{ work.date }} - {{ work.work_category }}</a></h5>
 
         {% endfor %}
   </div>

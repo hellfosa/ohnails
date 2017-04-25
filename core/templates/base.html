@@ -57,7 +57,7 @@
           <h5 class="white-text">Последние работы</h5>
           <ul>
 {% for work in works %}
-        <li><a class="white-text" href="{% url 'work_detail' pk=work.pk %}">{{ work.date }}</a></li>
+        <li><a class="white-text" href="{% url 'work_detail' pk=work.pk %}">{{ work.date }} - {{ work.work_category }}</a></li>
 {% endfor %}
           </ul>
         </div>

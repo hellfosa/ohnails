@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ох, милочка!</title>
+<title>Oh, nails!</title>
 <meta name="description" content="">
 <meta name="author" content="">
 {% load static %}
@@ -68,7 +68,7 @@
         <div class="row">
           <div class="intro-text">
             <h1>Oh, nails</h1>
-            <p>Manicure, cats and hapiness</p>
+            <p>Manicure, cats and hapiness.</p>
             <a href="#about" class="btn btn-custom btn-lg page-scroll">Узнай больше</a> </div>
         </div>
       </div>
@@ -234,10 +234,10 @@
           <li>
             <ol class="type">
               <li><a href="#" data-filter="*" class="active">Все</a></li>
-              <li><a href="#" data-filter=".onetone">Однотонное</a></li>
-              <li><a href="#" data-filter=".art">Роспись</a></li>
-              <li><a href="#" data-filter=".stones">Инкрустрация</a></li>
-              <li><a href="#" data-filter=".aero">Аэрография</a></li>
+              <li><a href="#" data-filter=".OneTone">Однотонное</a></li>
+              <li><a href="#" data-filter=".Art">Роспись</a></li>
+              <li><a href="#" data-filter=".Stones">Инкрустрация</a></li>
+              <li><a href="#" data-filter=".Aero">Аэрография</a></li>
 
             </ol>
           </li>
@@ -248,19 +248,18 @@
 
     <div class="row">
       <div class="portfolio-items">
-{% load extras %}
-{% for cat in categories %}
-        <div class="col-sm-6 col-md-4 col-lg-4 {{ cat.category }}">
-{% load extras %}
 
+{% for category in categories %}
+        <div class="col-sm-6 col-md-4 col-lg-4 {{ category.category }}">
+
+        {% load extras %}
         {% for work in work_cats|access:category.category %}
-
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="{{ MEDIA_URL }}{{ photo.file.url }}" title="{{ work.category }}" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="{{ MEDIA_URL }}{{ work.file.url }}" title="{{ work.category }}" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>{{ work.category }}</h4>
+                <h4>{{ work.work_category }}</h4>
               </div>
-              <img src="{{ MEDIA_URL }}{{ photo.file.url }}" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="{{ MEDIA_URL }}{{ work.file.url }}" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
 
 

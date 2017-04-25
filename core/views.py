@@ -57,7 +57,7 @@ def work_list(request):
 @login_required
 def work_detail(request, pk):
     done = get_object_or_404(work, pk=pk)
-    photos = Photo.objects.filter(client_name=done.client, uploaded_at=done.date)
+    photos = Photo.objects.filter(client_name=done.client, uploaded_at=done.date, category=done.work_category)
     if request.method == 'GET':
         return render(request, 'work_detail.html', {'done': done, 'photos': photos})
     elif request.method == 'POST' and request.POST.get('remove') != 'True':
@@ -86,7 +86,7 @@ def work_add(request):
         files = request.FILES.getlist('photo')
         if form.is_valid():
             for file in files:
-                obj = Photo(client_name=form.cleaned_data['client'], category=form.cleaned_data['work_categorie'], file=file)
+                obj = Photo(client_name=form.cleaned_data['client'], category=form.cleaned_data['work_category'], file=file, date=form.cleaned_data['date'], uploaded_at=form.cleaned_data['date'])
                 print(form.cleaned_data['client'])
                 obj.save()
             form.save()
@@ -118,7 +118,9 @@ def public_index(request):
     if request.method == 'GET':
         categories = work_categorie.objects.all()
         works = work.objects.all()
+        photos = Photo.objects.all()
         work_cats = {}
         for category in categories:
-            work_cats[category.category] = works.filter(category=category)
+            work_cats[category.category] = photos.filter(published=True).filter(category=category)
+        print(work_cats)
         return render(request, 'public/index.html', {'categories': categories, 'works': works, 'work_cats': work_cats})

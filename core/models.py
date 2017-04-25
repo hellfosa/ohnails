@@ -43,7 +43,7 @@ class work_categorie(models.Model):
 class Photo(models.Model):
     photo_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     client_name = models.CharField(max_length=255, blank=True)
-    file = models.FileField(upload_to='photos/%Y/%m/%d/', blank=True)
+    file = models.FileField(upload_to='photos/%Y/', blank=True)
     published = models.BooleanField(default=False)
     category = models.CharField(max_length=100, blank=True)
     uploaded_at = models.DateField(default=timezone.now)
