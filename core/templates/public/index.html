@@ -250,10 +250,9 @@
       <div class="portfolio-items">
 
 {% for category in categories %}
-        <div class="col-sm-6 col-md-4 col-lg-4 {{ category.category }}">
-
         {% load extras %}
         {% for work in work_cats|access:category.category %}
+        <div class="col-sm-6 col-md-4 col-lg-4 {{ category.category }}">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="{{ MEDIA_URL }}{{ work.file.url }}" title="{{ work.category }}" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -261,10 +260,8 @@
               </div>
               <img src="{{ MEDIA_URL }}{{ work.file.url }}" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
-
-
-        {% endfor %}
         </div>
+        {% endfor %}
 {% endfor %}
 
 
@@ -327,34 +324,52 @@
 <!-- Contact Section -->
 <div id="contact" class="text-center">
   <div class="container">
+
     <div class="section-title text-center">
-      <h2>Записаться на прием</h2>
+      <h2>Записаться на маникюр</h2>
       <hr>
-      <p>Мы всегда найдем удобное время.</p>
-    </div>
+     </div>
     <div class="col-md-10 col-md-offset-1">
       <form name="sentMessage" id="contactForm" novalidate>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <input type="text" id="name" class="form-control" placeholder="Имя" required="required">
               <p class="help-block text-danger"></p>
+                {% csrf_token %}
+                {{ form.client }}
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <input type="email" id="email" class="form-control" placeholder="Телефон" required="required">
               <p class="help-block text-danger"></p>
+                {{ form.email }}
+
             </div>
           </div>
         </div>
         <div class="form-group">
-          <textarea name="message" id="message" class="form-control" rows="4" placeholder="Сообщение" required></textarea>
           <p class="help-block text-danger"></p>
+                {{ form.message }}
+
         </div>
         <div id="success"></div>
         <button type="submit" class="btn btn-custom btn-lg">Записаться на прием!</button>
       </form>
+
+    </div>
+  </div>
+  <div class="container">
+    <div class="section-title text-center">
+    <p></p>
+  </div>
+  </div>
+  <div class="container">
+    <div class="section-title text-center">
+        <h2>Как нас найти</h2>
+        <hr>
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+        <iframe src="https://api-maps.yandex.ru/frame/v1/-/C6eFIF5J" width="640" height="400" frameborder="0"></iframe>
     </div>
   </div>
 </div>
@@ -390,7 +405,7 @@
           <li><a href="#"><i class="fa fa-instagram"></i></a></li>
         </ul>
       </div>
-      <p>Based on template from <a href="http://www.templatewire.com" rel="nofollow">TemplateWire</a>. Developed by Oh-nails comrades.</p>
+      <p>Based on template from <a href="http://www.templatewire.com" rel="nofollow">TemplateWire</a>. Developed by Oh-nails comrades. <a href="/main">Go to admin</a> </p>
     </div>
   </div>
 </div>
@@ -401,7 +416,82 @@
 <script type="text/javascript" src="{% static "js/nivo-lightbox.js" %}"></script>
 <script type="text/javascript" src="{% static "js/jquery.isotope.js" %}"></script>
 <script type="text/javascript" src="{% static "js/jqBootstrapValidation.js" %}"></script>
-<script type="text/javascript" src="{% static "js/contact_me.js" %}"></script>
 <script type="text/javascript" src="{% static "js/main.js" %}"></script>
 </body>
 </html>
+
+<script>
+
+$(function() {
+
+    $("input,textarea").jqBootstrapValidation({
+        preventSubmit: true,
+        submitError: function($form, event, errors) {
+            // additional error messages or events
+        },
+        submitSuccess: function($form, event) {
+            event.preventDefault(); // prevent default submit behaviour
+            // get values from FORM
+            var name = $("input#id_client").val();
+            var email = $("input#id_email").val();
+            var message = $("input#id_message").val();
+            var firstName = name; // For Success/Failure Message
+            // Check for white space in name for Success/Fail message
+            if (firstName.indexOf(' ') >= 0) {
+                firstName = name.split(' ').slice(0, -1).join(' ');
+            }
+            $.ajax({
+                type: "POST",
+                url: "/",
+                data: {
+                    'name': name,
+                    'email': email,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'message': message,
+
+                },
+                cache: false,
+                success: function() {
+                    // Success message
+                    $('#success').html("<div class='alert alert-success'>");
+                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                        .append("</button>");
+                    $('#success > .alert-success')
+                        .append("<strong>Your message has been sent. </strong>");
+                    $('#success > .alert-success')
+                        .append('</div>');
+
+                    //clear all fields
+                    $('#contactForm').trigger("reset");
+                },
+                error: function() {
+                    // Fail message
+                    $('#success').html("<div class='alert alert-danger'>");
+                    $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                        .append("</button>");
+                    $('#success > .alert-danger').append("<strong>Sorry " + firstName + ", it seems that my mail server is not responding. Please try again later!");
+                    $('#success > .alert-danger').append('</div>');
+                    //clear all fields
+                    $('#contactForm').trigger("reset");
+                },
+            })
+        },
+        filter: function() {
+            return $(this).is(":visible");
+        },
+    });
+
+    $("a[data-toggle=\"tab\"]").click(function(e) {
+        e.preventDefault();
+        $(this).tab("show");
+    });
+});
+
+
+/*When clicking on Full hide fail/success boxes */
+$('#name').focus(function() {
+    $('#success').html('');
+});
+
+
+</script>

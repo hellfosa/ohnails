@@ -5,6 +5,7 @@ from django.conf import settings
 from django.forms.formsets import formset_factory
 
 
+
 class DocumentForm(forms.ModelForm):
     class Meta:
         model = client
@@ -36,3 +37,8 @@ class PhotoForm(forms.ModelForm):
         model = Photo
         fields = ('file',)
     uploaded_at = forms.DateField(label='Дата работы', initial=timezone.now, input_formats=settings.DATE_INPUT_FORMATS)
+
+class Contact(forms.Form):
+    client = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'}))
+    email = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Почта'}))
+    message = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Сообщение'}))

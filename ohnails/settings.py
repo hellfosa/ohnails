@@ -101,6 +101,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'info@oh-nails.ru'
+EMAIL_HOST_PASSWORD = 'тут_был_пароль'
+EMAIL_USE_SSL = True
+
+
+LOGIN_REDIRECT_URL = '/main'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

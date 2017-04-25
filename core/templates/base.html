@@ -24,15 +24,24 @@
       <ul class="right hide-on-med-and-down">
         <li><a href="/admin/">Go to admin</a></li>
       </ul>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/logout/">Logout</a></li>
+      </ul>
 
       <ul id="nav-mobile" class="side-nav">
         <li><a href="/admin/">Go to admin</a></li>
       </ul>
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="/logout/">Logout</a></li>
+      </ul>
       <a href="/admin/" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a href="/logout/" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+
     </div>
   </nav>
 {% block content %}
 {% endblock %}
+{% if user.is_authenticated %}
 
   <footer class="page-footer orange">
     <div class="container">
@@ -64,8 +73,7 @@
       </div>
     </div>
   </footer>
-
-
+{% endif %}
 
   </body>
 </html>

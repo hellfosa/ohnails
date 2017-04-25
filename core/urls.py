@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^work/(?P<pk>[0-9]+)/edit/$', views.work_edit, name='work_edit'),
     url(r'^$', views.public_index, name='public_index'),
 
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

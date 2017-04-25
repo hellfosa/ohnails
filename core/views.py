@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import client, work, Photo, work_categorie
 from django.contrib.auth.decorators import login_required
-from .forms import DocumentForm, WorkForm
+from .forms import DocumentForm, WorkForm, Contact
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -86,11 +87,11 @@ def work_add(request):
         files = request.FILES.getlist('photo')
         if form.is_valid():
             for file in files:
-                obj = Photo(client_name=form.cleaned_data['client'], category=form.cleaned_data['work_category'], file=file, date=form.cleaned_data['date'], uploaded_at=form.cleaned_data['date'])
+                obj = Photo(client_name=form.cleaned_data['client'], category=form.cleaned_data['work_category'], file=file, uploaded_at=form.cleaned_data['date'])
                 print(form.cleaned_data['client'])
                 obj.save()
             form.save()
-            return redirect('/')
+            return redirect('/main')
     else:
         form = WorkForm()
     return render(request, 'work_add.html', {'form': form, 'clients': clients})
@@ -115,12 +116,24 @@ def work_edit(request, pk):
 
 
 def public_index(request):
-    if request.method == 'GET':
-        categories = work_categorie.objects.all()
-        works = work.objects.all()
-        photos = Photo.objects.all()
-        work_cats = {}
-        for category in categories:
-            work_cats[category.category] = photos.filter(published=True).filter(category=category)
-        print(work_cats)
-        return render(request, 'public/index.html', {'categories': categories, 'works': works, 'work_cats': work_cats})
+    form = Contact(request.POST)
+    categories = work_categorie.objects.all()
+    works = work.objects.all()
+    photos = Photo.objects.all()
+    work_cats = {}
+    for category in categories:
+        work_cats[category.category] = photos.filter(published=True).filter(category=category).order_by('uploaded_at')[:15]
+    if request.method == 'POST':
+        message = '''
+        У вас новая заявка на маникюр
+    \n
+        Имя - {0}
+    \n
+        Телефон - {1}
+    \n
+        Текст сообщения:
+    \n
+        {2}
+        '''.format(request.POST.get('name'), request.POST.get('email'), request.POST.get('message'),)
+        send_mail('Работать негры!', message, 'info@oh-nails.ru', ['info@oh-nails.ru'])
+    return render(request, 'public/index.html', {'categories': categories, 'works': works, 'work_cats': work_cats, 'form': form})
