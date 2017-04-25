@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 def crm_index(request):
     if request.method == 'GET':
         works = work.objects.all().order_by('date')[:5]
+        print(works)
         return render(request, 'index.html', {'works': works})
 
 @login_required
